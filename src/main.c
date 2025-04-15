@@ -3,7 +3,13 @@
 
 int main(){
 
-	create_menu({"a1", "a2", "a3"} );
+    char *str[] = {
+        "a1",
+        "a2",
+        "a3"
+    };
+
+	create_menu(str);
 
     return 0;
 }

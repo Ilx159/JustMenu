@@ -2,7 +2,7 @@
 CC = gcc
 
 #Opções de copilação
-CFLAGS = -Wall -Wextra -O3 -I lib/linux
+CFLAGS = -Wall -Wextra -O3 -I lib
 
 #pastas
 
