@@ -9,7 +9,7 @@ int main(){
         "a3"
     };
 
-	create_menu(str);
+	create_menu(str, 3, 24);
 
     return 0;
 }
