@@ -3,34 +3,42 @@
 #include "justmenu.h"
 
 char*** items;
-char*** menus;
+char** menus;
+unsigned char array_size;
 
 void add_item(char *item);
-void add_list(char **item);
+void add_list(unsigned char array_size, char **item);
 void name_del_item(char *item);
 void num_del_item(unsigned char item);
-void create_menu();
-char * print_menu();
+void create_menu(unsigned char width);
+char * print_menu(unsigned char i);
 
 
+void add_list(unsigned char size, char **item){
+    array_size = size;
+    for(int i = 0; array_size > i; i++){
+        sprintf(items[0][i],  item[i]);
+    }
+}
 
-void create_menu(){
+void create_menu(unsigned char width){
 
 
-    sprintf( ,"+");
+    sprintf(menus[0] ,"+");
 
-    for(unsigned char i = 0; i < width; sprintf(menu,"-"), i++);
-        sprintf(menu,"+\n");
+    for(unsigned char i = 0; i < width; sprintf(menus[0],"-"), i++);
+    
+    sprintf(menus[0],"+\n");
 
     for(char i = 0; i < array_size; i++){
-        sprintf(menu,"| %u. %-10s|\n", i + 1, items[i]);
+        sprintf(menus[0],"| %u. %-10s|\n", i + 1, items[i][0]);
     }
 
-    sprintf(menu,"+");
+    sprintf(menus[0],"+");
 
-    for(unsigned char i = 0; i < width; sprintf(menu,"-"), i++);
+    for(unsigned char i = 0; i < width; sprintf(menus[0],"-"), i++);
 
-    sprintf(menu,"+\n");
+    sprintf(menus[0],"+\n");
 
 
 }
@@ -38,27 +46,9 @@ void create_menu(){
 
 
 
-char * print_menu(char *items[], unsigned char array_size, unsigned char width){
+char * print_menu(unsigned char i){
 
-    char * menu;
-    width -= 2;
+    printf("%s", menus[i]);
 
-    sprintf(menu,"+");
-
-    for(unsigned char i = 0; i < width; sprintf(menu,"-"), i++);
-        sprintf(menu,"+\n");
-
-    for(char i = 0; i < array_size; i++){
-        sprintf(menu,"| %u. %-10s|\n", i + 1, items[i]);
-    }
-
-    sprintf(menu,"+");
-
-    for(unsigned char i = 0; i < width; sprintf(menu,"-"), i++);
-
-    sprintf(menu,"+\n");
-
-
-    printf("%s", menu);
-    return menu;
+    return menus[0];
 }

@@ -9,7 +9,9 @@ int main(){
         "a3"
     };
 
-	create_menu(str, 3, 24);
+	add_list(3, str);
+    create_menu(16);
+    print_menu(0);
 
     return 0;
 }
