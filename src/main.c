@@ -4,14 +4,23 @@
 int main(){
 
     char *str[] = {
-        "a1",
+        "a112345678910",
+        "a2",
+        "a3",
+        "a112345678910",
+        "a2",
+        "a3",
+        "a112345678910",
+        "a2",
+        "a3",
+        "a112345678910",
         "a2",
         "a3"
     };
 
-	add_list(3, str);
-    create_menu(16);
-    print_menu(0);
+	add_list(1,12,str);
+    create_menu(1,20);
+    print_menu(1);
 
     return 0;
 }
