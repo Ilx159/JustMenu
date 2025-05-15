@@ -19,7 +19,7 @@ int main(){
     };
 
 	add_list(1,12,str);
-    create_menu(1,20);
+    create_menu(1,15);
     print_menu(1);
 
     return 0;

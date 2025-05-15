@@ -53,7 +53,7 @@ BOOL add_list(unsigned char menu_id,unsigned char array_size, char **item){
             menus[menu_id]->items[i] = malloc(strlen(item[i])+1);
             if(menus[menu_id]->items[i]==NULL){
                 printf("Alocação de memoria falhou");
-                for(unsigned char j = 0; j < i; j++, free(menus[menu_id]->items[i]));
+                for(unsigned char j = 0; j < i; j++, free(menus[menu_id]->items[j]));
                 free(menus[menu_id]->items);
                 free(menus[menu_id]);
             }
@@ -61,9 +61,6 @@ BOOL add_list(unsigned char menu_id,unsigned char array_size, char **item){
         }
 
         menus[menu_id]->item_count = array_size;
-
-
-        
 
         return true;
     }
@@ -87,10 +84,20 @@ void create_menu(char menu_id, unsigned char width){
     buffer+=sprintf(buffer,"+\n");
 
     //itens
-    for(char i = 0; i < menus[menu_id]->item_count; i++){
-        buffer+=snprintf(buffer,width,"| %u. %-*.*s", i + 1,width - 10,width - 10, menus[menu_id]->items[i]);/*arrumar este número para que verifique o tamanho do indice*/
-        //for(char j = 0; j < width-8; j++,buffer+=sprintf(buffer," "));
-        buffer+=sprintf(buffer,"|\n");
+    unsigned char item_width = width-9;    
+   
+
+    for(unsigned char i = 0; i < menus[menu_id]->item_count; i++){
+        
+        buffer+=sprintf(buffer, "| %u.", i + 1);
+
+        if(i<9)
+          buffer+=sprintf(buffer, "  ");
+	else if(i<99)
+	  buffer+=sprintf(buffer, " ");	
+
+        buffer+=sprintf(buffer," %-*.*s |\n",item_width,item_width, menus[menu_id]->items[i]);
+        
     }
     buffer+=sprintf(buffer,"+");
 
