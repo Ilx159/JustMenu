@@ -24,12 +24,12 @@ void add_item(char *item);
 BOOL add_list(unsigned char menu_id,unsigned char array_size, char **list);
 void name_del_item(char *item);
 void num_del_item(unsigned char item);
-void create_menu(char menu_id, unsigned char width);
+BOOL create_menu(char menu_id, unsigned char width);
 char * print_menu(unsigned char i);
 
 
 BOOL add_list(unsigned char menu_id,unsigned char array_size, char **item){
-    if(menu_id < 0 || menu_id >= MAX_MENUS){
+    if(menu_id >= MAX_MENUS){
         printf("ERRO: menu nao existe!\n");
     }
     else if (menus[menu_id] == NULL)
@@ -71,20 +71,25 @@ BOOL add_list(unsigned char menu_id,unsigned char array_size, char **item){
 
 
 
-void create_menu(char menu_id, unsigned char width){
+BOOL create_menu(char menu_id, unsigned char width){
 
-    int memory_size = (width + 3)*2+(menus[menu_id]->item_count * (width+width/2)) + 1; //alocação de memória para o menu formatado
-    menus[menu_id]->formatted = malloc(memory_size);
+  int memory_size = (width + 3)*2+(menus[menu_id]->item_count * (width+width/2)) + 1; //alocação de memória para o menu formatado
+  menus[menu_id]->formatted = malloc(memory_size);
 
-    char* buffer = menus[menu_id]->formatted;//criação de um buffer
+  char* buffer = menus[menu_id]->formatted;//criação de um buffer
 
-    //inicio na tabela
+  if(buffer == NULL){
+    printf("Erro na alocação da memória\n");
+    return false;
+  }
+
+  //inicio na tabela
     buffer+=sprintf(buffer ,"+");
     for(unsigned char i = 0; i < width-2; buffer+=sprintf(buffer,"-"), i++);
     buffer+=sprintf(buffer,"+\n");
 
     //itens
-    unsigned char item_width = width-9;    
+    unsigned char item_width = width-9; //comprimento da variavel   
    
 
     for(unsigned char i = 0; i < menus[menu_id]->item_count; i++){
@@ -93,17 +98,20 @@ void create_menu(char menu_id, unsigned char width){
 
         if(i<9)
           buffer+=sprintf(buffer, "  ");
-	else if(i<99)
-	  buffer+=sprintf(buffer, " ");	
+	      else if(i<99)
+	        buffer+=sprintf(buffer, " ");	
 
         buffer+=sprintf(buffer," %-*.*s |\n",item_width,item_width, menus[menu_id]->items[i]);
         
     }
+
     buffer+=sprintf(buffer,"+");
 
     for(unsigned char i = 0; i < width-2; buffer+=sprintf(buffer,"-"), i++);
 
     buffer+=sprintf(buffer,"+\n");
+
+    return true;
 }
 
 char * print_menu(unsigned char i){
@@ -112,3 +120,6 @@ char * print_menu(unsigned char i){
 
     return menus[i]->formatted;
 }
+
+
+
